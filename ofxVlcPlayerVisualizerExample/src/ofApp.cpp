@@ -4,9 +4,11 @@
 void ofApp::setup() {
     ofSetWindowTitle("ofxVlcPlayerVisualizerExample");
     ofSetFrameRate(60);
-    char const* vlc_argv[] = { "--vout=opengl", "--no-video", "--audio-visual=goom", "--goom-width=1280", "--goom-height=720" };
-    int vlc_argc = sizeof(vlc_argv) / sizeof(*vlc_argv);
-    player.load("https://acidpauli.pushtopull.org/files/2010/acid-pauli-vs-hometrainer-ritter-butzke-2010-05-23.mp3", vlc_argc, vlc_argv);
+    //~ char const* vlc_argv[] = { "--vout=opengl", "--no-video", "--audio-visual=goom", "--goom-width=1280", "--goom-height=720" };
+    //~ char const* vlc_argv[] = { "--vout=opengl", "--no-video", "--audio-visual=goom", "--goom-width=1280", "--goom-height=720" };
+    //~ int vlc_argc = sizeof(vlc_argv) / sizeof(*vlc_argv);
+    //~ player.load("https://acidpauli.pushtopull.org/files/2010/acid-pauli-vs-hometrainer-ritter-butzke-2010-05-23.mp3", vlc_argc, vlc_argv);
+    player.load("rain_hevc_194x320.mp4");
     player.setLoop(true);
     player.play();
 }

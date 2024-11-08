@@ -47,6 +47,7 @@ public:
     void play();
     void pause();
     void stop();
+    void close();
     void setPosition(float pct);
     void setLoop(bool loop);
     bool getLoop() const;
@@ -54,6 +55,7 @@ public:
     float getWidth() const;
     bool isPlaying();
     bool isSeekable();
+    bool isLoaded();
     float getPosition();
     int getTime();
     void setTime(int ms);
@@ -64,4 +66,6 @@ public:
     int getTotalNumFrames();
     void setVolume(int volume);
     void toggleMute();
+    
+    ofEvent<void> endReachedEvent;
 };

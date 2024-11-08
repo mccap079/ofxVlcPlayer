@@ -75,9 +75,13 @@ void ofxVlcPlayer::pause() {
 }
 
 void ofxVlcPlayer::stop() {
-    libvlc_media_player_release(mp);
+    //~ libvlc_media_player_release(mp);
     mp = libvlc_media_player_new_from_media(m);
     createPlayer();
+}
+
+void ofxVlcPlayer::close() {
+    libvlc_media_player_release(mp);
 }
 
 void ofxVlcPlayer::setPosition(float pct) {
@@ -106,6 +110,12 @@ bool ofxVlcPlayer::isPlaying() {
 
 bool ofxVlcPlayer::isSeekable() {
     return libvlc_media_player_is_seekable(mp);
+}
+
+bool ofxVlcPlayer::isLoaded() {
+    if (mp == nullptr) return false;
+    if(libvlc_media_player_get_media(mp) == nullptr) return false;
+    else return true;
 }
 
 float ofxVlcPlayer::getPosition() {
@@ -172,16 +182,20 @@ void ofxVlcPlayer::createPlayer() {
     eventManager = libvlc_media_player_event_manager(mp);
     libvlc_event_attach(eventManager, libvlc_MediaPlayerEndReached, vlcEventStatic, this);
 
-    libvlc_media_player_play(mp);
+    //~ libvlc_media_player_play(mp);
     libvlc_media_player_set_time(mp, 0);
 }
 
 void ofxVlcPlayer::vlcEvent(const libvlc_event_t* event) {
     if (event->type == libvlc_MediaPlayerEndReached) {
-        mp = libvlc_media_player_new_from_media(m);
-        createPlayer();
         if (isLooping) {
+            mp = libvlc_media_player_new_from_media(m);
+            createPlayer();
             play();
+        } else {
+            cout << "calling end of video event and stopping..." << endl;
+            stop();
+            ofNotifyEvent(endReachedEvent);
         }
     }
 }
